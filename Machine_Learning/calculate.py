@@ -3,7 +3,7 @@ from arguments import get_arguments
 from methods import *
 from sklearn.datasets import load_iris, make_blobs, load_breast_cancer
 import argparse
-import numpy
+import numpy as np
 import collections
 
 def main():
@@ -15,12 +15,30 @@ def main():
         # y = 2x+5
         x = np.array([2,6,9])
         y = np.array([9,17,23])
-        w = np.random.uniform(-1,1,1)
+        w = np.random.uniform(-1,1,1) # np.random.uniform(low, high, size)
         b = np.random.uniform(-1,1,1)
         w,b = globals()[args.methods](x,y,w,b)
-        '''
-        PREDICTION
-        '''
+
+        # correct answer : w = 2, b = 5
+        x_test = np.array(range(0, 20))
+        y_test = x_test*2+5
+
+        # predict y by Linear_Regression
+        w_linear,b_linear = Linear_Regression(x, y, b, w, learning_rate=0.01, epochs=1000, batch_size=16)
+        y_predict_linear = x_test*w_linear + b_linear
+
+        # predict y by Linear_Regression_GD
+        w_linear_GD, b_linear_GD = Linear_Regression_GD(x,y,b,w,learning_rate=0.01,epochs=10000)
+        y_predict_linear_GD = x_test * w_linear_GD + b_linear_GD
+
+        # Least square estimation
+        LSE = ((y_predict_linear - y_test) ** 2) / 2
+        print("Linera_Regression : calculate accuracy by LSE :", LSE.sum())
+        LSE_GD = ((y_predict_linear_GD - y_test) ** 2) / 2
+        print("Linera_Regression_GD : calculate accuracy by LSE :", LSE_GD.sum())
+
+        # Maximum Likelihood Estimation
+
 
     elif args.methods=='Logistic_Regression':
         x,y = load_iris(return_X_y=True)

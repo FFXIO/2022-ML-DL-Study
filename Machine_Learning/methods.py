@@ -1,5 +1,7 @@
 import numpy as np
 from compute_utils import *
+import random
+
 def Linear_Regression_GD(x,y,b,w,learning_rate=0.01,epochs=10000):
     '''
     설명 : gradient descent를 통해서 b,w를 epoch만큼 업데이트 시키고 return w,b 
@@ -8,8 +10,15 @@ def Linear_Regression_GD(x,y,b,w,learning_rate=0.01,epochs=10000):
     w : [representation]
     b : [1]
     '''
-    
-    return w,b
+
+    for _ in range(epochs) :
+        hypothesis = w*x + b
+        w_temp = (y - hypothesis)*x
+        b_temp = y - hypothesis
+        w = w + learning_rate*w_temp.sum()
+        b = b + learning_rate*b_temp.sum()
+
+    return w, b
 
 def Linear_Regression(x,y,b,w,learning_rate=0.01,epochs=1000,batch_size=16):
     '''
@@ -24,6 +33,13 @@ def Linear_Regression(x,y,b,w,learning_rate=0.01,epochs=1000,batch_size=16):
         w       : [rep,number of class]
         b       : [1,number of class]
     '''
+
+    for _ in range(epochs) :
+        hypothesis = w * x + b
+        w_temp = (y - hypothesis) * x
+        b_temp = y - hypothesis
+        w = w + learning_rate * np.random.choice(w_temp, min(len(x), batch_size), False).sum()
+        b = b + learning_rate * np.random.choice(b_temp, min(len(x), batch_size), False).sum()
    
     return w,b
 
