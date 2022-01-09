@@ -30,6 +30,9 @@ def cross_entropy_loss(y,t):
    
 
 def divide_dataset(x,y):
+    '''
+    training set : test set = 8 : 2
+    '''
     train_mask = np.random.choice(x.shape[0],int(x.shape[0]*0.8),replace=False)
     test_mask = np.delete(np.arange(len(x)),train_mask)
     x_train = x[train_mask]

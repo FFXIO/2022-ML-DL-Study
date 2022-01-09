@@ -5,6 +5,7 @@ from sklearn.datasets import load_iris, make_blobs, load_breast_cancer
 import argparse
 import numpy as np
 import collections
+import compute_utils as cu
 
 def main():
     # argument parsing
@@ -69,7 +70,7 @@ def main():
         data = load_breast_cancer()
         x = data['data']
         y = data['target']
-        x_train,y_train,x_test,y_test = divide_dataset(x,y)
+        x_train,y_train,x_test,y_test = cu.divide_dataset(x,y)
         number_of_class = len(collections.Counter(y))
         x_threshold,p_rep_status,p_pos = globals()[args.methods](x_train,y_train,number_of_class)
 
@@ -89,6 +90,15 @@ def main():
         '''
         PREDICTION
         '''
+
+    elif args.methods == 'Random_Forest':
+        data = load_breast_cancer()
+        x = data['data']
+        y = data['target']
+        x_train, y_train, x_test, y_test = cu.divide_dataset(x, y)
+        number_of_class = len(collections.Counter(y))
+        globals()[args.methods](x_train, y_train, x_test, y_test)
+
 
 if __name__=='__main__':
     main()

@@ -1,6 +1,8 @@
 import numpy as np
 from compute_utils import *
 import random
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
 
 def Linear_Regression_GD(x,y,b,w,learning_rate=0.01,epochs=10000):
     '''
@@ -96,5 +98,16 @@ def K_Means(data):
     return clusters, centroids
 
 
-def Random_Forest():
-    pass
+def Random_Forest(x_train, y_train, x_test, y_test):
+    classifier = RandomForestClassifier(n_estimators=100)
+    classifier.fit(x_train, y_train)
+
+    print('train result :', classifier.score(x_train, y_train))
+    print('test result  :', classifier.score(x_test, y_test))
+
+    confusion = confusion_matrix(y_test, classifier.predict(x_test))
+    print('confusion matrix (test set) :\n', confusion)
+    print('precision and recall (test set, 0 is positive) :\n')
+    print('precistion =', confusion[0][0]/(confusion[0][0] + confusion[1][0]))
+    print('recall =', confusion[0][0]/(confusion[0][0] + confusion[0][1]))
+    print('report (correct answer) :\n', classification_report(y_test, classifier.predict(x_test)))
