@@ -111,3 +111,27 @@ def Random_Forest(x_train, y_train, x_test, y_test):
     print('precistion =', confusion[0][0]/(confusion[0][0] + confusion[1][0]))
     print('recall =', confusion[0][0]/(confusion[0][0] + confusion[0][1]))
     print('report (correct answer) :\n', classification_report(y_test, classifier.predict(x_test)))
+
+    """
+    %%% result %%%
+    train result : 1.0
+    test result  : 0.9736842105263158
+    
+    confusion matrix (test set) :
+     [[47  3]
+     [ 0 64]]
+     
+    precision and recall (test set, 0 is positive) :
+    precistion = 1.0
+    recall = 0.94
+    report (correct answer) :
+                   precision    recall  f1-score   support
+    
+               0       1.00      0.94      0.97        50
+               1       0.96      1.00      0.98        64
+    
+        accuracy                           0.97       114
+       macro avg       0.98      0.97      0.97       114
+    weighted avg       0.97      0.97      0.97       114
+    
+    """
