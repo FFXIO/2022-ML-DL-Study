@@ -113,7 +113,7 @@ def Random_Forest(x_train, y_train, x_test, y_test):
     print('report (correct answer) :\n', classification_report(y_test, classifier.predict(x_test)))
 
     """
-    %%% result %%%
+    (venvgit) seungyeonkoo@Seungyeonui-MacBookPro:~/Documents/GitHub/2022-ML-DL-Study/Machine_Learning$ python3 calculate.py --methods Random_Forest
     train result : 1.0
     test result  : 0.9736842105263158
     
