@@ -17,7 +17,7 @@ def main():
         y = np.array([9,17,23])
         w = np.random.uniform(-1,1,1) # np.random.uniform(low, high, size)
         b = np.random.uniform(-1,1,1)
-        w,b = globals()[args.methods](x,y,w,b)
+        # w,b = globals()[args.methods](x,y,w,b)
 
         # correct answer : w = 2, b = 5
         x_test = np.array(range(0, 20))
